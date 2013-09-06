@@ -1,0 +1,380 @@
+INFO:Mp3Facil - logging
+:Serivdor Online - 2013-09-06 19:08
+
+INFO:Mp3Facil
+:Server Online - 2013-09-06 19:12
+
+INFO:Mp3Facil
+:User teste Conected
+
+INFO:Mp3Facil
+:Server Online - 2013-09-06 19:12
+
+INFO:Mp3Facil
+:Login error - User: t Password: t
+
+INFO:root:Server Online - 2013-09-06 19:44
+INFO:root:Login error - User: test Password: t
+INFO:root:Server Online - 2013-09-06 19:44
+INFO:root:User teste Conected
+INFO:root:listing files
+INFO:root:playing a song
+INFO:root:Server Online - 2013-09-06 19:47
+INFO:root:User teste Conected
+INFO:root:playing a song
+INFO:root:Server Online - 2013-09-06 19:49
+INFO:root:User teste Conected
+INFO:root:playing a song
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/a'
+INFO:root:Server Online - 2013-09-06 19:52
+INFO:root:Login error - User: test Password: tes
+INFO:root:Server Online - 2013-09-06 19:52
+INFO:root:User teste Conected
+INFO:root:playing a song
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/a'
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:listing files
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-06 20:04
+INFO:root:User teste Conected
+INFO:root:playing a song
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/a'
+INFO:root:listing files
+INFO:root:playing a song
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/Black in Black.wav'
+INFO:root:playing a song
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/Back in Black.wav'
+INFO:root:playing a song
+INFO:root:Opened file: Back In Black.wav
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-06 20:09
+INFO:root:User teste Conected
+INFO:root:listing files
+INFO:root:Opened file: Heatseeker.wav
+INFO:root:playing a song
+INFO:root:end playing a song
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-06 20:15
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-06 20:19
+INFO:root:User teste Conected
+INFO:root:Exception Occurred : [Errno 2] No such file or directory: 'songs/free/a'
+INFO:root:listing files
+INFO:root:Opened file: Thunderstruck.wav
+INFO:root:playing a song
+INFO:root:end playing a song
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-06 20:27
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-06 20:27
+INFO:root:User teste Conected
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-06 20:29
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-06 20:29
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-06 20:30
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-06 20:31
+INFO:root:User teste Conected
