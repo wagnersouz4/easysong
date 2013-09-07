@@ -4,14 +4,8 @@
 # Framework para a criação de sockets
 import SocketServer
 
-# Módulo que permite tocar e gravar audio
-import pyaudio
-
 # Módulo que permite a leitura de arquivos wave
 import wave
-
-# Módulo que permite utilizar funções do sistema operacional
-import os
 
 # Módulo para gerenciamento de log de maneira simples
 import logging
@@ -20,7 +14,7 @@ import logging
 import datetime
 
 # Conjunto de ferramentas para tornar o trabalho com SQL mais flexível
-from sqlalchemy import engine
+from sqlalchemy import create_engine
 
 """
 Módulo que implementa uma inteface comum para diferentes hash de
@@ -72,16 +66,15 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.user = self.request.recv(1024).rstrip('\r\n')
         self.request.send('Password:')
         self.passwd = self.request.recv(1024).rstrip('\r\n')
-        self.verify_user()
 
         try:
             self.connect_db()
         except Exception as e:
             self.server_error(msg_type='database_error', e=e)
+            return
 
-        if self.user == 'teste' and self.passwd == 'teste':
+        if self.verify_user():
             self.request.send('200\n')
-            self.verify_user()
             self.logger.info('User %s Conected', self.user)
             self.iteractive()
 
@@ -98,9 +91,9 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
     """
 
     def connect_db(self):
-        #Usaremos o banco de dados mysql
+        # Usaremos o banco de dados mysql
         engine = create_engine(
-            'mysql://root:mysqlroot@localhost/sentiment_dict')
+            'mysql://root:mysqlroot@localhost/easysong')
         self.connection = engine.connect()
 
     """
@@ -113,9 +106,15 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         passwd = hashlib.sha512(self.passwd).hexdigest()
 
         # verificando se usuário está presente no banco
-        query = self.connection.execute('select * from negative_pt-br')
-        self.result = query.fetchall()
-        self.request.send(self.result)
+        try:
+            query = self.connection.execute(
+                "select * from `user` where username='" + self.user + "' and password='" + passwd+"'")
+            self.user_data = query.fetchall()
+        except Exception, e:
+            self.server_error(msg_type='database_error', e=e)
+            return
+
+        return self.user_data
 
     """
     Instância responsável por gerenciar a iteratividade do servidor
@@ -123,14 +122,14 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
     """
 
     def iteractive(self):
-
         """
         Atribuindo os comandos a suas funções, list para listar músicas e
         play para tocar uma música em específico
         """
         commands = {
-            'list': self.list_files,
-            'play': self.play_song
+            'list': self.list_songs,
+            'play': self.play_song,
+            'buy':  self.buy_song
         }
 
         self.clear_screen()
@@ -138,22 +137,23 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.request.send(
             '------------------COMMANDS AVAILABLE------------------\n')
         self.request.send('list - to list all music files on the server\n')
-        self.request.send('play - to enter a filename and than streaming it\n')
+        self.request.send('play - to enter a filename and than streaming a demo\n')
+        self.request.send('buy - to enter a filename and than buy it\n')
         self.request.send('exit - to logout of server\n')
         self.request.send('------------------------------------\n')
 
         # Lendo a opção digita pelo usuário
         command = self.request.recv(1024).rstrip('\r\n')
 
-        while command != 'exit' and self.verify_request():
-            if command not in commands:
+        while command != 'exit':
 
+            if command not in commands:
                 """
                 Caso o comando não seja encontrado na lista de comandos
                 disponíveis, retornamos 404.
                 """
                 self.request.send('404\n')
-                self.logger.info('Ivalid Command')
+                self.logger.info('ivalid Command')
             else:
                 commands[command]()
 
@@ -165,20 +165,23 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
     Instância responsável por listar as músicas disponíveis
     """
 
-    def list_files(self):
-        self.logger.info('listing files')
-
+    def list_songs(self):
         # Listando arquivos disponíveis no diretório de músicas grátis
         try:
-            files = os.listdir('./songs/free')
+            query = self.connection.execute("select * from `songs`")
+            result = query.fetchall()
         except Exception as e:
-            self.server_error(msg_type='dir_error', e=e)
+            self.server_error(msg_type='database_error', e=e)
             return
 
-        for f in files:
-            self.request.send(f + '\n')
-        self.request.send('\n\n')
-
+        if not result:
+            self.logger.info('empty files list')
+            self.request.send('404\n')
+            return
+        
+        self.logger.info('listing files')
+        self.request.send(str(result))
+        
         return
     """
     Instância responsável por fazer o streaming de uma música
@@ -188,16 +191,16 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.request.send('Filename:')
         filename = self.request.recv(1024).rstrip('\r\n')
 
-        # Tamanho padrão do chunk - tamanho baseado em exemplos vistos na web
+        # Tamanho padrão do chunk - http://docs.python.org/2/library/chunk.html
         chunk = 1024
 
         try:
-            s = wave.open('songs/free/' + filename, 'rb')
+            s = wave.open('songs/free/' + filename+'.wav', 'rb')
         except Exception as e:
             self.server_error(msg_type='file_error', e=e)
             return
 
-        self.logger.info('Opened file: %s', filename)
+        self.logger.info('opened file: %s', filename)
 
         try:
             data = s.readframes(chunk)
@@ -223,13 +226,73 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.iteractive()
 
     """
+    Instância responsável pela compra e envio do arquivo mp3 para o client
+    """
+    def buy_song(self):
+        self.request.send('Filename:')
+        filename = self.request.recv(1024).rstrip('\r\n')
+        try:
+            query = self.connection.execute("select `price` from `songs` where `title`='"+filename+"'")
+            result = query.fetchall()
+        except Exception, e:
+            self.server_error(msg_type='database_error', e=e)
+            return
+        
+        if not result:
+            self.logger.info('song not found')
+            self.request.send('404\n')
+            return
+
+        self.logger.info('buying a song')
+
+        if self.has_money(self.user_data[0][3], result[0][0]):
+            self.debit_from_client(result[0][0])
+        else:
+            self.logger.info('not enough money')
+            self.request.send('not enough money\n')
+
+    """
+    Instância responsável por fazer o débito na conta do usuário
+    """
+    def debit_from_client(self, debit):
+        money = self.user_data[0][3] - debit
+        try:
+            query = "update `user` set `money` = {money} where id = {id}".format(money=money, id=self.user_data[0][0])
+            self.connection.execute(query)
+            self.request.send('song bought\n')
+            self.logger.info('song bought')
+        except Exception, e:
+            self.server_error(msg_type='database_error', e=e)
+            return
+
+
+        #Aqui apenas atualizamos os dados do usuário
+        try:
+            update_query = "select * from `user` where id={id}".format(id=self.user_data[0][0])
+            query = self.connection.execute(update_query)
+            self.user_data = query.fetchall()
+        except Exception, e:
+            self.server_error(msg_type='database_error', e=e)
+            return
+
+    """
+    Instância responsável por verificar se o usuário tem dinheiro suficiente
+    """
+    def has_money(self, user_money, song_price):
+        if ((user_money - song_price) >=0):
+            return True
+        else:
+            return False
+
+
+    """
     Instância responsável pelo gerenciamento de erros no servidor
     """
 
     def server_error(self, msg_type, e):
         # Tipos de mensagem de erro
         msg = {'chunk_error': 'Error while processing file', 'file_error':
-               'Invalid filename', 'dir_error': 'Server listing error', 'database_error': 'Server database error'}
+               'Server file processing error', 'dir_error': 'Server listing error', 'database_error': 'Server database error'}
 
         self.logger.info('Exception Occurred : %s', e)
         self.request.send(msg[msg_type] + ' - Try again :-)\n')

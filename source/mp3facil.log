@@ -378,3 +378,150 @@ INFO:root:Server Online - 2013-09-06 20:30
 INFO:root:User teste Conected
 INFO:root:Server Online - 2013-09-06 20:31
 INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-07 09:28
+INFO:root:Server Online - 2013-09-07 09:30
+INFO:root:Exception Occurred : global name 'create_engine' is not defined
+INFO:root:Server Online - 2013-09-07 09:33
+INFO:root:Login error - User: test Password: tes
+INFO:root:Server Online - 2013-09-07 09:33
+INFO:root:Server Online - 2013-09-07 09:35
+INFO:root:Server Online - 2013-09-07 09:37
+INFO:root:Login error - User: test Password: e
+INFO:root:Server Online - 2013-09-07 09:38
+INFO:root:User teste Conected
+INFO:root:Server Online - 2013-09-07 12:37
+INFO:root:Server Online - 2013-09-07 13:29
+INFO:root:Exception Occurred : (ProgrammingError) (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''test'' and password=52b526411070a0a92075ea7c2575f759f480f2f4788d56300091696fc7e' at line 1") "select * from `user` where username='test'' and password=52b526411070a0a92075ea7c2575f759f480f2f4788d56300091696fc7eabb71a74a5fbca04b1934e215ca00bb6b977f6069a34588caa81f622616caacbc83bf" ()
+INFO:root:Login error - User: test Password: te
+INFO:root:Server Online - 2013-09-07 13:29
+INFO:root:Exception Occurred : (ProgrammingError) (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''teste'' and password=b123e9e19d217169b981a61188920f9d28638709a5132201684d792b92' at line 1") "select * from `user` where username='teste'' and password=b123e9e19d217169b981a61188920f9d28638709a5132201684d792b9264271b7f09157ed4321b1c097f7a4abecfc0977d40a7ee599c845883bd1074ca23c4af" ()
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 13:31
+INFO:root:Exception Occurred : (OperationalError) (1054, "Unknown column 'b123e9e19d217169b981a61188920f9d28638709a5132201684d792b9264271b7f09157ed4321b1c097f7a4abecfc0977d40a7ee599c845883bd1074ca23c4af' in 'where clause'") "select * from `user` where username='teste' and password=b123e9e19d217169b981a61188920f9d28638709a5132201684d792b9264271b7f09157ed4321b1c097f7a4abecfc0977d40a7ee599c845883bd1074ca23c4af" ()
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 13:33
+INFO:root:Login error - User: teste Password: tste
+INFO:root:Server Online - 2013-09-07 13:33
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 13:33
+INFO:root:Login error - User: andre Password: andre
+INFO:root:Server Online - 2013-09-07 13:36
+INFO:root:Login error - User: andre Password: adnre
+INFO:root:Server Online - 2013-09-07 13:36
+INFO:root:Login error - User: andre Password: adnre
+INFO:root:Server Online - 2013-09-07 13:36
+INFO:root:User andre Conected
+INFO:root:Server Online - 2013-09-07 13:46
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 13:46
+INFO:root:User andre Conected
+INFO:root:Server Online - 2013-09-07 13:47
+INFO:root:User andre Conected
+INFO:root:Server Online - 2013-09-07 13:48
+INFO:root:Login error - User: andre Password: adnre
+INFO:root:Server Online - 2013-09-07 13:48
+INFO:root:User andre Conected
+INFO:root:Ivalid Command
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:listing files
+INFO:root:Ivalid Command
+INFO:root:Server Online - 2013-09-07 14:08
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:Server Online - 2013-09-07 14:23
+INFO:root:Login error - User: GET / HTTP/1.1
+Host: 127.0.0.1:8888
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:23.0) Gecko/20100101 Firefox/23.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.7,pt-br;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive Password: 
+INFO:root:Server Online - 2013-09-07 14:23
+INFO:root:Login error - User: GET /songs HTTP/1.1
+Host: 127.0.0.1:8888
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:23.0) Gecko/20100101 Firefox/23.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.7,pt-br;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive Password: 
+INFO:root:Server Online - 2013-09-07 14:23
+INFO:root:Server Online - 2013-09-07 15:10
+INFO:root:User andre Conected
+INFO:root:Server Online - 2013-09-07 15:12
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:Exception Occurred : (ProgrammingError) (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Back In Black' at line 1") "select price from `songs` where title='Back In Black" ()
+INFO:root:Server Online - 2013-09-07 15:15
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:song not found
+INFO:root:song not found
+INFO:root:listing files
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 15:21
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:buying a song
+INFO:root:not enough money
+INFO:root:Server Online - 2013-09-07 15:27
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:song bought
+INFO:root:buying a song
+INFO:root:song bought
+INFO:root:buying a song
+INFO:root:song bought
+INFO:root:Server Online - 2013-09-07 15:31
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:not enough money
+INFO:root:ivalid Command
+INFO:root:buying a song
+INFO:root:not enough money
+INFO:root:listing files
+INFO:root:buying a song
+INFO:root:not enough money
+INFO:root:Server Online - 2013-09-07 16:00
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:not enough money
+INFO:root:Server Online - 2013-09-07 16:01
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:Server Online - 2013-09-07 16:03
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:Server Online - 2013-09-07 16:04
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:buying a song
+INFO:root:Exception Occurred : cannot concatenate 'str' and 'float' objects
+INFO:root:song bought
+INFO:root:Server Online - 2013-09-07 16:10
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:song bought
+INFO:root:Server Online - 2013-09-07 16:13
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:Exception Occurred : global name 'passwd' is not defined
+INFO:root:song bought
+INFO:root:listing files
+INFO:root:Server Online - 2013-09-07 16:15
+INFO:root:Login error - User: abndre Password: andr
+INFO:root:Server Online - 2013-09-07 16:15
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:Exception Occurred : global name 'passwd' is not defined
+INFO:root:song bought
+INFO:root:Server Online - 2013-09-07 16:20
+INFO:root:User andre Conected
+INFO:root:buying a song
+INFO:root:song bought
+INFO:root:buying a song
+INFO:root:song bought
