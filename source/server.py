@@ -19,19 +19,26 @@ import logging
 # Módulo para manipulação de datas
 import datetime
 
-from sys import exit
+# Conjunto de ferramentas para tornar o trabalho com SQL mais flexível
+from sqlalchemy import engine
 
+"""
+Módulo que implementa uma inteface comum para diferentes hash de
+segurança (md5, sha1, sha512 entre outros)
+"""
+import hashlib
 
 """
 Classe responsável por gerenciar novas conexões ao servidor.
 Usaremos o módulo SocketServer do python que é um framework
 para criar servidores de rede.
-
 Seguimos a RFc2616 para retornos de erros - http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+"""
 
 """
-# Criando arquivo de log para que irá conter todas as informações sobre o
-# servidor
+Criando arquivo de log para que irá conter todas as informações sobre o
+servidor
+"""
 logging.basicConfig(filename='mp3facil.log', level=logging.DEBUG)
 
 
@@ -39,7 +46,6 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
     """
     Instância responsável por gerenciar conexões.
-    Detalhe essa é uma instância já presente na ServerSocket.
     """
 
     def handle(self):
@@ -54,13 +60,6 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         return
 
     """
-    Instância responsável por gerenciar possíveis erros de comunicação do servidor.
-    Instância também já presente no ServerSocket
-    """
-    def handle_error(self):
-        print 'erro'
-        self.finish_request()
-    """
     Instância responsável por gerenciar a autenticação do cliente
     """
 
@@ -73,9 +72,16 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.user = self.request.recv(1024).rstrip('\r\n')
         self.request.send('Password:')
         self.passwd = self.request.recv(1024).rstrip('\r\n')
+        self.verify_user()
+
+        try:
+            self.connect_db()
+        except Exception as e:
+            self.server_error(msg_type='database_error', e=e)
 
         if self.user == 'teste' and self.passwd == 'teste':
             self.request.send('200\n')
+            self.verify_user()
             self.logger.info('User %s Conected', self.user)
             self.iteractive()
 
@@ -87,21 +93,41 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
         return
 
+    """
+    Instância responsável por fazer a conexão com o banco de dados
+    """
+
+    def connect_db(self):
+        #Usaremos o banco de dados mysql
+        engine = create_engine(
+            'mysql://root:mysqlroot@localhost/sentiment_dict')
+        self.connection = engine.connect()
+
+    """
+    Instância responsável por verificar a autencidade do usuário
+    """
+
     def verify_user(self):
-        pass
+
+        # Iremos usar sha512 como algoritmo de segurança hash
+        passwd = hashlib.sha512(self.passwd).hexdigest()
+
+        # verificando se usuário está presente no banco
+        query = self.connection.execute('select * from negative_pt-br')
+        self.result = query.fetchall()
+        self.request.send(self.result)
 
     """
     Instância responsável por gerenciar a iteratividade do servidor
+    Neste passo iremos mostrar ao usuário como se interagir com o servidor usando comandos pré-defindos.
     """
 
     def iteractive(self):
-        """
-        Neste passo iremos mostrar ao usuário como se interagir com o servidor usando
-        comando pré-defindos.
-        """
 
-        # Atribuindo os comandos a suas funções, list para listar músicas e
-        # play para tocar uma música em específico
+        """
+        Atribuindo os comandos a suas funções, list para listar músicas e
+        play para tocar uma música em específico
+        """
         commands = {
             'list': self.list_files,
             'play': self.play_song
@@ -121,8 +147,11 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
         while command != 'exit' and self.verify_request():
             if command not in commands:
-                # Caso o comando não seja encontrado na lista de comandos
-                # disponíveis, retornamos 404.
+
+                """
+                Caso o comando não seja encontrado na lista de comandos
+                disponíveis, retornamos 404.
+                """
                 self.request.send('404\n')
                 self.logger.info('Ivalid Command')
             else:
@@ -131,6 +160,10 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
             command = self.request.recv(1024).rstrip('\r\n')
 
         return
+
+    """
+    Instância responsável por listar as músicas disponíveis
+    """
 
     def list_files(self):
         self.logger.info('listing files')
@@ -147,6 +180,9 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.request.send('\n\n')
 
         return
+    """
+    Instância responsável por fazer o streaming de uma música
+    """
 
     def play_song(self):
         self.request.send('Filename:')
@@ -187,21 +223,23 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.iteractive()
 
     """
-    Gerenciamento de erros no servidor
+    Instância responsável pelo gerenciamento de erros no servidor
     """
+
     def server_error(self, msg_type, e):
         # Tipos de mensagem de erro
         msg = {'chunk_error': 'Error while processing file', 'file_error':
-               'Invalid filename', 'dir_error': 'Server listing error'}
+               'Invalid filename', 'dir_error': 'Server listing error', 'database_error': 'Server database error'}
 
         self.logger.info('Exception Occurred : %s', e)
         self.request.send(msg[msg_type] + ' - Try again :-)\n')
 
     """
-    Limpando a tela
+    Instância responsável por simular uma limpeza de tela
     """
+
     def clear_screen(self):
-        for i in xrange(0,10):
+        for i in xrange(0, 10):
             self.request.send('\n')
 
 if __name__ == '__main__':
