@@ -525,3 +525,47 @@ INFO:root:buying a song
 INFO:root:song bought
 INFO:root:buying a song
 INFO:root:song bought
+INFO:root:Server Online - 2013-09-07 16:48
+INFO:root:User andre Conected
+INFO:root:Server Online - 2013-09-07 16:50
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 16:51
+INFO:root:Login error - User: teste Password: teste
+INFO:root:Server Online - 2013-09-07 16:56
+INFO:root:User andre Conected
+INFO:root:listing files
+INFO:root:opened file: Back In Black
+INFO:root:playing a song
+INFO:root:Server Online - 2013-09-07 17:04
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:04
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:05
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:05
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:07
+INFO:root:Server Online - 2013-09-07 17:07
+INFO:root:Server Online - 2013-09-07 17:08
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:19
+INFO:root:User andre Conected
+INFO:root:ivalid Command
+INFO:root:ivalid Command
+INFO:root:Server Online - 2013-09-07 17:41
+INFO:root:Exception Occurred : (OperationalError) (2002, "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)") None None
+INFO:root:Server Online - 2013-09-07 17:44
+INFO:root:Exception Occurred : (OperationalError) (2002, "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)") None None
+INFO:root:Server Online - 2013-09-07 18:39
+INFO:root:Exception Occurred : (OperationalError) (2002, "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)") None None
+INFO:root:Server Online - 2013-09-07 18:39
+INFO:root:Exception Occurred : (OperationalError) (2002, "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)") None None
