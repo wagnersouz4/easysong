@@ -35,3 +35,4 @@ nosetests.xml
 .pydevproject
 *.mp3
 *.wav
+*.log
