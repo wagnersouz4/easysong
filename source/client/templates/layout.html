@@ -6,7 +6,12 @@
   <h1 align="center">MP3 Fácil</h1>
   <div class=metanav>
   {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
+      <div  style="font-weight:bold;">
+      <div style="float:left; font-size:20px;" >
+        Faça seu login
+      </div>
+    </div>
+    <a href="{{ url_for('login') }}"><img src="static/login.png" alt="ENTRAR"></a>
   {% else %}
     <div  style="font-weight:bold;">
       <div style="float:left; font-size:20px;" >
