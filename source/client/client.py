@@ -168,7 +168,7 @@ class StreamingClientSocket(object):
         """
         self.cli.recv(1024)
 
-        if not result == '403':
+        if result == '200':
             return True
 
         else:
@@ -179,4 +179,4 @@ if __name__ == '__main__':
     s.connect_socket(user='andre', passwd='andre')
     s.list_songs()
     s.get_money()
-    s.buy_song(song='Thunderstruck')
+    s.stream_song(song='Thunderstruck')
