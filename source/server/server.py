@@ -2,10 +2,18 @@
 #-*- coding:utf-8 -*-
 
 # Framework para a criação de sockets
-import SocketServer
+try:
+    import SocketServer
+except ImportError:
+    raise ImportError(
+        "The SocketServer framework is required to run this program. Run `pip install SocketServer`")
 
 # Módulo que permite a leitura de arquivos wave
-import wave
+try:
+    import wave
+except ImportError:
+    raise ImportError(
+        "The wave module is required to run this program. Run `pip install wave`")
 
 # Módulo para gerenciamento de log de maneira simples
 import logging
@@ -14,13 +22,15 @@ import logging
 import datetime
 
 # Conjunto de ferramentas para tornar o trabalho com SQL mais flexível
-from sqlalchemy import create_engine
-
-import pyaudio
+try:
+    from sqlalchemy import create_engine
+except ImportError:
+    raise ImportError(
+        "The sqlalchemy framework is required to run this program. Run `pip install sqlalchemy`")
 
 """
 Usado para a serialização de objetos, precisamos passar outros tipos
-que não são strings para o client, por exemplo uma lista de músicas.
+que não são strings para o cliente, por exemplo uma lista de músicas.
 Escolhemos o cPickle pois o mesmo é implementado em C o que torna a
 serialização mais eficiente
 """
@@ -49,7 +59,7 @@ logging.basicConfig(filename='mp3facil.log', level=logging.DEBUG)
 class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
     """
-    Instância responsável por gerenciar conexões.
+    Método responsável por gerenciar conexões.
     """
 
     def handle(self):
@@ -64,7 +74,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         return
 
     """
-    Instância responsável por gerenciar a autenticação do cliente
+    Método responsável por gerenciar a autenticação do cliente
     """
 
     def auth(self):
@@ -89,7 +99,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
             self.iteractive()
 
         else:
-            self.request.send('503\n')
+            self.request.send('403\n')
             self.logger.info(
                 'Login error - User: %s Password: %s', self.user, self.passwd)
             self.request.close()
@@ -97,7 +107,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         return
 
     """
-    Instância responsável por fazer a conexão com o banco de dados
+    Método responsável por fazer a conexão com o banco de dados
     """
 
     def connect_db(self):
@@ -107,7 +117,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.connection = engine.connect()
 
     """
-    Instância responsável por verificar a autencidade do usuário
+    Método responsável por verificar a autencidade do usuário
     """
 
     def verify_user(self):
@@ -127,7 +137,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         return self.user_data
 
     """
-    Instância responsável por gerenciar a iteratividade do servidor
+    Método responsável por gerenciar a iteratividade do servidor
     Neste passo iremos mostrar ao usuário como se interagir com o servidor usando comandos pré-defindos.
     """
 
@@ -139,7 +149,8 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         commands = {
             'list': self.list_songs,
             'play': self.stream_song,
-            'buy':  self.buy_song
+            'buy':  self.buy_song,
+            'money': self.get_money
         }
 
         self.clear_screen()
@@ -150,6 +161,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.request.send(
             'play - to enter a filename and than streaming a demo\n')
         self.request.send('buy - to enter a filename and than buy it\n')
+        self.request.send('money - to view client current money\n')
         self.request.send('exit - to logout of server\n')
         self.request.send('------------------------------------\n')
 
@@ -173,7 +185,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         return
 
     """
-    Instância responsável por listar as músicas disponíveis
+    Método responsável por listar as músicas disponíveis
     """
 
     def list_songs(self):
@@ -196,7 +208,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
         return
     """
-    Instância responsável por fazer o streaming de uma música
+    Método responsável por fazer o streaming de uma música
     """
 
     def stream_song(self):
@@ -236,7 +248,14 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.iteractive()
 
     """
-    Instância responsável pela compra e envio do arquivo mp3 para o client
+    Método responsável por retornar o saldo do cliente
+    """
+    def get_money(self):
+        self.request.send(str(self.user_data[0][3]))
+        
+
+    """
+    Método responsável pela compra e envio do arquivo mp3 para o cliente
     """
 
     def buy_song(self):
@@ -245,7 +264,6 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         try:
             query = self.connection.execute(
                 "select `price` from `songs` where `title`='" + filename + "'")
-            print "select `price` from `songs` where `title`='" + filename + "'"
             result = query.fetchall()
         except Exception as e:
             self.server_error(msg_type='database_error', e=e)
@@ -260,10 +278,15 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
 
         if self.has_money(self.user_data[0][3], result[0][0]):
             self.debit_from_client(result[0][0])
-            song = open('songs/copyright/' + filename + '.mp3', 'rb')
+
+            try:
+                song = open('songs/copyright/' + filename + '.mp3', 'rb')
+            except Exception as e:
+                self.server_error(msg_type='file_error', e=e)
+                return
 
             """
-            lendo pelo o arquivo de 1024 em 1024 bits, pois usamos esse valor 
+            lendo o arquivo de 1024 em 1024 bits, pois usamos esse valor 
             para a comunicação entre cliente e servidor
             """
             data = song.read(1024)
@@ -271,14 +294,14 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
                 self.request.send(data)
                 data = song.read(1024)
 
-            self.request.send('end')
+            self.request.send('0x1A')
 
         else:
             self.logger.info('not enough money')
             self.request.send('403\n')
 
     """
-    Instância responsável por fazer o débito na conta do usuário
+    Método responsável por fazer o débito na conta do usuário
     """
 
     def debit_from_client(self, debit):
@@ -304,7 +327,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
             return
 
     """
-    Instância responsável por verificar se o usuário tem dinheiro suficiente
+    Método responsável por verificar se o usuário tem dinheiro suficiente
     """
 
     def has_money(self, user_money, song_price):
@@ -314,7 +337,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
             return False
 
     """
-    Instância responsável pelo gerenciamento de erros no servidor
+    Método responsável pelo gerenciamento de erros no servidor
     """
 
     def server_error(self, msg_type, e):
@@ -326,7 +349,7 @@ class ServerRequestsHandler(SocketServer.BaseRequestHandler):
         self.request.send(msg[msg_type] + ' - Try again :-)\n')
 
     """
-    Instância responsável por simular uma limpeza de tela
+    Método responsável por simular uma limpeza de tela
     """
 
     def clear_screen(self):
@@ -353,11 +376,6 @@ if __name__ == '__main__':
     """
     server = SocketServer.TCPServer(server_address, ServerRequestsHandler)
 
+    # Iniciando loop servidor
     t = threading.Thread(target=server.serve_forever)
-    # t.setDaemon(True)  # don't hang on exit
     t.start()
-
-"""
-            print ('Conectado. :-) \n')
-
-"""

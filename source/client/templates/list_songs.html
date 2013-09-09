@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <ul class=entries>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Música</th>
+            <th>Artista</th>
+            <th>Album</th>
+            <th>Gênero</th>
+            <th>Preço</th>
+            <th>Demo</th>
+            <th>Comprar</th>
+          </tr>
+        </thead>
+        {% for song in songs %}
+          <tr>
+            <td>{{ song.title }}</td>
+            <td>{{ song.artist }}</td>
+            <td>{{ song.album }}</td>
+            <td>{{ song.genre }}</td>
+            <td>R$ {{ song.price }}</td>
+            <td><a href="{{ url_for('play',song=song.title) }}"><img src="static/play.png"></a></td>
+            <td><a href="{{ url_for('buy',song=song.title) }}"><img src="static/buy.png"></a></td>
+            
+          </tr>
+        {% endfor %}
+      </table>
+  {%else%}
+    <li><em>É necessário estar logado para listar as músicas</em>
+  {%endif%}
+  </ul>
+{% endblock %}
+<thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>

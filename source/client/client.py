@@ -1,8 +1,15 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
+
 import socket
-import pyaudio
+
+try:
+    import pyaudio
+except ImportError:
+    raise ImportError(
+        "The pyaudio module is required to run this program. Run `pip install pyaudio`")
+
 import cPickle as pickle
 
 """
@@ -15,9 +22,9 @@ class StreamingClientSocket(object):
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-
+        self.connected = False
     """
-    Instância responsável por fazer a conexão com o servidor <socket></socket>
+    Método responsável por fazer a conexão com o servidor <socket></socket>
     """
 
     def connect_socket(self, user, passwd):
@@ -35,14 +42,21 @@ class StreamingClientSocket(object):
             self.connected = True
         else:
             self.connected = False
+            self.cli.close()
 
     """
-    Instância responsável por listar múscias
+    Método responsável por fazer a desconexão com o servidor
+    """
+    def socket_disconnect(self):
+        self.cli.close()
+
+    """
+    Método responsável por listar múscias
     """
 
     def list_songs(self):
         # enviando o comando para listar múscias
-        if self.is_connected:
+        if self.is_connected():
             self.cli.send('list')
             songs = pickle.loads(self.cli.recv(1024))
             if songs:
@@ -53,7 +67,7 @@ class StreamingClientSocket(object):
             return 403
 
     """
-    Instância responsável por fazer o streamming de uma música
+    Método responsável por fazer o streamming de uma música
     """
 
     def stream_song(self, song):
@@ -88,7 +102,7 @@ class StreamingClientSocket(object):
 
     def buy_song(self, song):
 
-        if self.is_connected:
+        if self.is_connected():
             self.cli.send('buy')
             self.cli.recv(1024)
             self.cli.send(song)
@@ -103,35 +117,50 @@ class StreamingClientSocket(object):
 
             else:
                 # Criando o arquivo com a música
-                song = open(song + '.mp3', 'wb')
-                while 'end' not in data:
+                song = open('downloads/' + song + '.mp3', 'wb')
+
+                while '0x1A' not in data:
                     song.write(data)
                     data = self.cli.recv(1024)
+
+                return 200
         else:
             return 403
 
-
-
-
     """
-    Instância por retornar o status da conexão
+    Método responsável por retornar o status da conexão
     """
+
     def is_connected(self):
         return self.connected
 
     """
-    Instância responsável por verificar a autenticidade do usuário
+    Método responsável por retornar o saldo do usuário
     """
+
+    def get_money(self):
+        if self.is_connected():
+            self.cli.send('money')
+            return self.cli.recv(1024).strip('\r\n')
+        else:
+            return 403
+
+    """
+    Método responsável por verificar a autenticidade do usuário
+    """
+
     def verify_user(self):
         """
         Neste ponto iremos receber os outputs do servidor e enviaremos inputs
         """
+        print self.user, self.passwd
         self.cli.recv(1024)
         self.cli.send(self.user)
         self.cli.recv(1024)
         self.cli.send(self.passwd)
 
-        result = self.cli.recv(1024)
+        result = self.cli.recv(1024).rstrip('\r\n')
+        print result
 
         """
         Recebendo menu de opções, que não será usado nessa cliente, mas é válido quando
@@ -139,54 +168,15 @@ class StreamingClientSocket(object):
         """
         self.cli.recv(1024)
 
-        if not result == '503':
+        if not result == '403':
             return True
 
         else:
             return False
 
-s = StreamingClientSocket(ip='0.0.0.0', port=8888)
-s.connect_socket(user='andre', passwd='andre')
-s.list_songs()
-s.buy_song(song='Back In Black')
-
-"""
-# se o usuario for invalido ele volta 503
-# caso contrário ele volta 200+lista do comandos
-
-
-# recebe resposta se autenticou ou não
-clisock.recv(1024)
-
-
-# enviando o comando play preciso de um recv logo após, pois precisamos
-# digitar o filename
-clisock.send('play')
-
-# recebe o filename
-clisock.recv(1024)
-
-# envia o filename
-clisock.send('Back In Black')
-
-# em caso de achar usar esse processo para tocar a musica
-data = clisock.recv(1024)
-
-p = pyaudio.PyAudio()
-
-stream = p.open(
-    format=p.get_format_from_width(pyaudio.paInt32),
-    channels=2,
-    rate=44100,
-    output=True
-)
-
-while data != 'Song end':
-    # print data
-    stream.write(data)
-    data = clisock.recv(1024)
-    print data
-
-# stream.close()
-# p.terminate()
-"""
+if __name__ == '__main__':
+    s = StreamingClientSocket(ip='0.0.0.0', port=8888)
+    s.connect_socket(user='andre', passwd='andre')
+    s.list_songs()
+    s.get_money()
+    s.buy_song(song='Thunderstruck')
